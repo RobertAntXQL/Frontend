@@ -5,7 +5,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Producto } from '../../models/producto.model';
 import { ProductoService } from '../../core/services/producto.service';
 import { ProductoFormComponent } from '../producto-form/producto-form';
-
+import { environment } from '../../../environments/environment';
 @Component({
   selector: 'app-productos',
   standalone: true,
@@ -53,7 +53,7 @@ export class ProductosComponent implements OnInit {
       error: (err: HttpErrorResponse) => {
         this.cargando.set(false);
         this.error.set(err.status === 0
-          ? 'No se pudo conectar al backend. Comprueba que Spring Boot esté ejecutándose en localhost:8080.'
+          ? `No se pudo conectar al backend en ${environment.apiUrl}.`
           : 'No se pudieron cargar los productos. Comprueba el JWT y el servidor.');
       }
     });
