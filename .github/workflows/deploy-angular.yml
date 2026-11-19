@@ -1,3 +1,4 @@
+
 name: Angular CI-CD - GitHub Pages
 
 on:
@@ -17,6 +18,7 @@ concurrency:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
@@ -34,17 +36,20 @@ jobs:
       - name: Instalar dependencias
         run: npm ci
 
-      - name: Compilar Angular para produccion
+      - name: Compilar Angular
         run: npx ng build --configuration production --base-href "/${{ github.event.repository.name }}/"
+
+      - name: Preparar rutas Angular
+        run: cp dist/fe-ecommerce-ChungaRobert/browser/index.html dist/fe-ecommerce-ChungaRobert/browser/404.html
 
       - name: Preparar GitHub Pages
         uses: actions/configure-pages@v5
 
-      - name: Subir artefacto estatico
+      - name: Subir archivos
         uses: actions/upload-pages-artifact@v4
         with:
           path: dist/fe-ecommerce-ChungaRobert/browser
 
-      - name: Publicar en GitHub Pages
+      - name: Publicar
         id: deployment
         uses: actions/deploy-pages@v4
