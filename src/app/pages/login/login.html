@@ -1,0 +1,45 @@
+<main class="login-page">
+  <div class="login-art" aria-hidden="true">
+    <div class="art-grid"></div>
+    <div class="art-content">
+      <div class="brand-mark">⚡</div>
+      <p class="eyebrow">ELECTROSTORE / PANEL DE CONTROL</p>
+      <h1>Tu inventario,<br><em>bajo control.</em></h1>
+      <p>Consulta y administra el catálogo de productos desde un único lugar.</p>
+      <div class="art-stat"><span class="stat-icon">✓</span> Administración segura con JWT</div>
+    </div>
+    <div class="art-footer">Soluciones Web · Evaluación T2</div>
+  </div>
+
+  <section class="login-area" aria-label="Inicio de sesión">
+    <div class="login-card">
+      <div class="mobile-brand"><span>⚡</span> ElectroStore</div>
+      <p class="eyebrow dark">ACCESO A PLATAFORMA</p>
+      <h2>Bienvenido de nuevo</h2>
+      <p class="subtitle">Inicia sesión para gestionar tus productos.</p>
+
+      @if (errorMessage) {
+        <p class="alert-error" role="alert">{{ errorMessage }}</p>
+      }
+
+      <form (ngSubmit)="login()" #loginForm="ngForm" novalidate>
+        <label for="username">Usuario</label>
+        <input id="username" name="username" type="text" [(ngModel)]="username"
+          required autocomplete="username" placeholder="Ingresa tu usuario" />
+
+        <div class="label-row"><label for="password">Contraseña</label></div>
+        <div class="password-wrap">
+          <input id="password" name="password" [type]="showPassword ? 'text' : 'password'"
+            [(ngModel)]="password" required autocomplete="current-password" placeholder="Ingresa tu contraseña" />
+          <button type="button" class="show-pass" (click)="showPassword = !showPassword"
+            [attr.aria-label]="showPassword ? 'Ocultar contraseña' : 'Mostrar contraseña'">{{ showPassword ? 'Ocultar' : 'Mostrar' }}</button>
+        </div>
+
+        <button type="submit" class="btn-login" [disabled]="isLoading || !loginForm.valid">
+          {{ isLoading ? 'Validando acceso...' : 'Iniciar sesión' }} <span aria-hidden="true">→</span>
+        </button>
+      </form>
+      <p class="login-note"><span>🔒</span> Acceso protegido por autenticación JWT</p>
+    </div>
+  </section>
+</main>

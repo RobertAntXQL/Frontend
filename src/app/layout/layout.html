@@ -1,0 +1,34 @@
+<div class="app-shell">
+  <button class="mobile-toggle" type="button" (click)="toggleMenu()"
+    [attr.aria-expanded]="menuAbierto" aria-label="Abrir menú lateral">☰ <span>ElectroStore</span></button>
+
+  @if (menuAbierto) {
+    <button type="button" class="mobile-overlay" (click)="cerrarMenu()" aria-label="Cerrar menú"></button>
+  }
+
+  <aside class="sidebar" [class.sidebar-open]="menuAbierto" aria-label="Menú principal">
+    <div class="sidebar-top">
+      <div class="sidebar-brand"><span class="logo-box">⚡</span> <span>ElectroStore<small>ADMIN CONSOLE</small></span></div>
+      <button class="mobile-close" type="button" (click)="cerrarMenu()" aria-label="Cerrar menú lateral">×</button>
+    </div>
+    <div class="sidebar-section-label">MENÚ PRINCIPAL</div>
+    <nav class="sidebar-links">
+      <a routerLink="/productos" routerLinkActive="active" (click)="cerrarMenu()">
+        <span class="nav-icon">▦</span><span>Productos</span><span class="nav-arrow">›</span>
+      </a>
+    </nav>
+    <div class="sidebar-bottom">
+      <div class="sidebar-user"><div class="avatar">{{ inicial }}</div><div class="user-info"><strong>{{ username }}</strong><small>Sesión activa</small></div></div>
+      <button type="button" class="logout" (click)="logout()"><span>↪</span> Cerrar sesión</button>
+    </div>
+  </aside>
+
+  <div class="app-main">
+    <header class="topbar">
+      <div class="breadcrumbs">Administración <span>/</span> <strong>Productos</strong></div>
+      <div class="topbar-right"><span class="connected-dot"></span> API REST · Spring Boot <div class="avatar top-avatar">{{ inicial }}</div></div>
+    </header>
+    <main class="page-content"><router-outlet /></main>
+    <footer class="app-footer">ElectroStore · Soluciones Web y Aplicaciones Distribuidas</footer>
+  </div>
+</div>

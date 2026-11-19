@@ -1,0 +1,28 @@
+<div class="dialog-backdrop" (click)="cancelar.emit()"></div>
+<section class="product-dialog" role="dialog" aria-modal="true" aria-labelledby="form-title">
+  <header class="dialog-head">
+    <div><p class="eyebrow">CATÁLOGO / PRODUCTOS</p><h2 id="form-title">{{ esEdicion ? 'Editar producto' : 'Nuevo producto' }}</h2>
+      <p>{{ esEdicion ? 'Modifica los campos y guarda los cambios.' : 'Registra un artículo en el inventario.' }}</p></div>
+    <button class="icon-close" type="button" (click)="cancelar.emit()" aria-label="Cerrar formulario">×</button>
+  </header>
+  @if (errorMessage) { <p class="form-error" role="alert">{{ errorMessage }}</p> }
+  <form (ngSubmit)="guardar()" #productoForm="ngForm">
+    <div class="form-grid">
+      <div class="full-field"><label for="nombre">Nombre del producto <span>*</span></label>
+        <input id="nombre" name="nombre" type="text" maxlength="100" [(ngModel)]="form.nombre" required placeholder="Ej. Laptop Gamer ASUS ROG" /></div>
+      <div><label for="categoria">Categoría <span>*</span></label>
+        <input id="categoria" name="categoria" type="text" maxlength="50" [(ngModel)]="form.categoria" required placeholder="Ej. Laptops" /></div>
+      <div><label for="marca">Marca <span>*</span></label>
+        <input id="marca" name="marca" type="text" maxlength="50" [(ngModel)]="form.marca" required placeholder="Ej. ASUS" /></div>
+      <div><label for="precio">Precio (S/) <span>*</span></label>
+        <input id="precio" name="precio" type="number" min="0.01" step="0.01" [(ngModel)]="form.precio" required /></div>
+      <div><label for="stock">Stock <span>*</span></label>
+        <input id="stock" name="stock" type="number" min="0" step="1" [(ngModel)]="form.stock" required /></div>
+      <div class="full-field"><label for="codigoBarras">Código de barras <span>*</span></label>
+        <input id="codigoBarras" name="codigoBarras" type="text" maxlength="100" [(ngModel)]="form.codigoBarras" required placeholder="Ej. 7501234567890" />
+        <small>Debe ser único para cada producto.</small></div>
+    </div>
+    <footer class="dialog-footer"><button type="button" class="btn-secondary" (click)="cancelar.emit()" [disabled]="guardando">Cancelar</button>
+      <button type="submit" class="btn-primary" [disabled]="!productoForm.valid || guardando">{{ guardando ? 'Guardando...' : (esEdicion ? 'Guardar cambios' : 'Registrar producto') }}</button></footer>
+  </form>
+</section>
