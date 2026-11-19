@@ -2,7 +2,7 @@ import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../core/services/auth.service';
-
+import { environment } from '../../../environments/environment';
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -43,7 +43,7 @@ export class LoginComponent {
         this.errorMessage = err.status === 401
           ? 'Usuario o contraseña incorrectos.'
           : err.status === 0
-            ? 'No se pudo conectar al backend en localhost:8080.'
+            ? `No se pudo conectar al backend en ${environment.apiUrl}.`
             : 'No fue posible iniciar sesión. Revisa el servidor.';
       }
     });
